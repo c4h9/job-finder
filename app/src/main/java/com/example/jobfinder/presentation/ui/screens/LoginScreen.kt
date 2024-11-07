@@ -10,16 +10,24 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -31,99 +39,141 @@ import com.example.jobfinder.ui.theme.JobFinderTheme
 @Composable
 fun LoginPreview() {
     JobFinderTheme {
-        val viewModel: MainViewModel = viewModel()
-        LoginScreen(viewModel)
+        LoginScreen()
     }
 }
 
 @Composable
-fun LoginScreen(viewModel: MainViewModel) {
+fun LoginScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+            .padding(16.dp)
+            .background(MaterialTheme.colorScheme.background),
+        verticalArrangement = Arrangement.SpaceBetween,
+        horizontalAlignment = Alignment.Start
     ) {
         Text(
             text = "Вход в личный кабинет",
-            color = Color.White,
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(bottom = 32.dp)
+            color = MaterialTheme.colorScheme.onPrimary,
+            style = MaterialTheme.typography.displayMedium,
+            modifier = Modifier.padding(top = 32.dp),
         )
 
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Color.DarkGray)
-                .padding(16.dp)
-        ) {
-            Column {
-                Text(
-                    text = "Поиск работы",
-                    color = Color.White,
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold
+        Column {
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                shape = MaterialTheme.shapes.small,
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.onSecondary
                 )
-                Spacer(modifier = Modifier.height(8.dp))
-                BasicTextField(
-                    value = "",
-                    onValueChange = {},
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(Color.Gray)
-                        .padding(8.dp)
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                Row(
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Button(
-                        onClick = {  },
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
+            ) {
+                Column(modifier = Modifier
+                    .padding(horizontal = 16.dp, vertical = 24.dp)) {
+                    Text(
+                        text = "Поиск работы",
+                        color = MaterialTheme.colorScheme.onPrimary,
+                        style = MaterialTheme.typography.displaySmall
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    CustomTextField()
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text(text = "Продолжить", color = Color.White)
+                        Button(
+                            onClick = { },
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.colorScheme.primary,
+                                contentColor = MaterialTheme.colorScheme.onPrimary
+                            ),
+                            shape = MaterialTheme.shapes.small,
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Text(
+                                text = "Продолжить",
+                                color = MaterialTheme.colorScheme.onPrimary,
+                                style = MaterialTheme.typography.bodySmall
+                            )
+                        }
+                        TextButton(onClick = { }) {
+                            Text(
+                                text = "Войти с паролем",
+                                color = MaterialTheme.colorScheme.primary,
+                                style = MaterialTheme.typography.bodySmall
+                            )
+                        }
                     }
-                    TextButton(onClick = {  }) {
-                        Text(text = "Войти с паролем", color = Color.Blue)
+                }
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                shape = MaterialTheme.shapes.small,
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.onSecondary
+                )
+            ) {
+                Column(modifier = Modifier
+                    .padding(horizontal = 16.dp, vertical = 24.dp))  {
+                    Text(
+                        text = "Поиск сотрудников",
+                        color = MaterialTheme.colorScheme.onPrimary,
+                        style = MaterialTheme.typography.displaySmall
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = "Размещение вакансий и доступ к базе резюме",
+                        color = MaterialTheme.colorScheme.onPrimary,
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Button(
+                        onClick = { },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.secondary,
+                            contentColor = MaterialTheme.colorScheme.onPrimary
+                        ),
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        Text(
+                            text = "Я ищу сотрудников",
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            style = MaterialTheme.typography.bodySmall
+                        )
                     }
                 }
             }
         }
+        Spacer(modifier = Modifier.height(0.dp))
+    }
+}
 
-        Spacer(modifier = Modifier.height(16.dp))
+@Composable
+fun CustomTextField() {
+    val textState = remember { TextFieldValue("example@mail.com") }
 
-        Box(
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(56.dp)
+            .background(
+                color = MaterialTheme.colorScheme.surface,
+                shape = MaterialTheme.shapes.small
+            ),
+        contentAlignment = Alignment.Center
+    ) {
+        BasicTextField(
+            value = textState,
+            onValueChange = { /* Обработка изменения текста */ },
+            textStyle = MaterialTheme.typography.displaySmall.copy(
+                color = MaterialTheme.colorScheme.onPrimary
+            ),
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color.DarkGray)
-                .padding(16.dp)
-        ) {
-            Column {
-                Text(
-                    text = "Поиск сотрудников",
-                    color = Color.White,
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = "Размещение вакансий и доступ к базе резюме",
-                    color = Color.White,
-                    fontSize = 14.sp
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                Button(
-                    onClick = {  },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.Green),
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text(text = "Я ищу сотрудников", color = Color.White)
-                }
-            }
-        }
+                .padding(horizontal = 16.dp, vertical = 16.dp)
+        )
     }
 }

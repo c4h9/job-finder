@@ -1,5 +1,6 @@
 package com.example.jobfinder.presentation.ui
 
+import android.app.Application
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -9,6 +10,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import com.example.jobfinder.presentation.viewmodel.MainViewModel
 import com.example.jobfinder.ui.theme.JobFinderTheme
+import com.yandex.mapkit.MapKitFactory
 
 class MainActivity : ComponentActivity() {
 

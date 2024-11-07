@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.jobfinder"
-        minSdk 24
+        minSdk 26
         targetSdk 34
         versionCode 1
         versionName "1.0"
@@ -86,6 +86,9 @@ dependencies {
 
     // Flow
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.8.6'
+
+    // Yandex.map
+    implementation 'com.yandex.android:maps.mobile:4.8.1-lite'
 
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit

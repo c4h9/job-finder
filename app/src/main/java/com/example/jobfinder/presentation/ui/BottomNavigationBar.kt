@@ -13,7 +13,7 @@ val navigationItems = listOf(
     Screen.Main,
     Screen.Favorites,
     Screen.Responses,
-    Screen.Messages,
+    Screen.VacanciesList,
     Screen.Profile
 )
 

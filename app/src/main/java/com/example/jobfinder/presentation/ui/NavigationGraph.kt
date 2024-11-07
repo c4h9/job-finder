@@ -10,7 +10,7 @@ import com.example.jobfinder.Screen
 import com.example.jobfinder.presentation.ui.screens.FavoritesScreen
 import com.example.jobfinder.presentation.ui.screens.LoginScreen
 import com.example.jobfinder.presentation.ui.screens.MainScreen
-import com.example.jobfinder.presentation.ui.screens.MessagesScreen
+import com.example.jobfinder.presentation.ui.screens.VacanciesListScreen
 import com.example.jobfinder.presentation.ui.screens.ProfileScreen
 import com.example.jobfinder.presentation.ui.screens.ResponsesScreen
 import com.example.jobfinder.presentation.ui.screens.VacancyScreen
@@ -35,28 +35,28 @@ fun NavigationGraph(
         startDestination = startDestination
     ) {
         composable(Screen.Favorites.route) {
-            FavoritesScreen(viewModel)
+            FavoritesScreen()
         }
         composable(Screen.Login.route) {
-            LoginScreen(viewModel)
+            LoginScreen()
         }
         composable(Screen.Main.route) {
-            MainScreen(viewModel)
+            VacancyScreen()//MainScreen()
         }
-        composable(Screen.Messages.route) {
-            MessagesScreen(viewModel)
+        composable(Screen.VacanciesList.route) {
+            VacanciesListScreen()
         }
         composable(Screen.Profile.route) {
-            ProfileScreen(viewModel)
+            ProfileScreen()
         }
         composable(Screen.Responses.route) {
-            ResponsesScreen(viewModel)
+            ResponsesScreen()
         }
         composable(Screen.Vacancy.route) {
-            VacancyScreen(viewModel)
+            VacancyScreen()
         }
         composable(Screen.Verification.route) {
-            VerificationScreen(viewModel)
+            VerificationScreen()
         }
     }
 }

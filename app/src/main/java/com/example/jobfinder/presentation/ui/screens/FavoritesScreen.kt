@@ -31,12 +31,12 @@ fun FavoritesPreview() {
             "Избранный элемент 2",
             "Избранный элемент 3"
         )
-        FavoritesScreen(sampleFavorites)
+        FavoritesScreen()
     }
 }
 
 @Composable
-fun FavoritesScreen(viewModel: Any) { //()
+fun FavoritesScreen() { //()
     val favorites: List<String> = listOf(
         "Избранный элемент 1",
         "Избранный элемент 2",
@@ -66,7 +66,7 @@ fun FavoritesScreen(viewModel: Any) { //()
 fun FavoriteItem(item: String) {
     Card(
         modifier = Modifier
-            .fillMaxWidth()
+
             .padding(vertical = 8.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
